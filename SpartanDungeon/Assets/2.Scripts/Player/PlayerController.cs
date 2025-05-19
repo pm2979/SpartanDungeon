@@ -81,8 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         // 세로 회전
         camCurXRot += mouseDelta.y * lookSensitivity;
-
-        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
+        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook); // 회전 범위 제한
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         // 가로 회전
@@ -123,7 +122,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 기본 위치
-            _camera.transform.position = cameraContainer.forward - cameraContainer.forward * cameraDistance;
+            _camera.transform.position = cameraContainer.forward + (-cameraContainer.forward) * cameraDistance;
         }
     }
 }
