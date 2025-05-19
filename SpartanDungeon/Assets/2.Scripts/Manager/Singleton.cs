@@ -12,7 +12,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             {
                 instance = FindObjectOfType<T>(); // 존재 검색
 
-                if(instance != null) // 없으면 새로 생성
+                if(instance == null) // 없으면 새로 생성
                 {
                     GameObject obj = new GameObject();
                     obj.name = typeof(T).Name;
