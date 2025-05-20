@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public float cameraDistance = 5.5f; // 카메라 거리
 
     private Vector2 mouseDelta;  // 마우스 변화값
+
+    public Action itemUse;
     private Rigidbody rb;
 
     private void Awake()
@@ -66,6 +69,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnItemUseInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            itemUse?.Invoke();
+        }
+    }
+
     private void Move() // 움직임
     {
         Vector3 dir = transform.forward * curMoveInput.y + transform.right * curMoveInput.x;
@@ -107,9 +118,10 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private void CameraPos()
+    private void CameraPos() // 카메라 위치 조정
     {
-        Ray ray = new Ray(cameraContainer.position, -cameraContainer.forward); // 카메라 뒤로 Ray
+        // 카메라 뒤로 Ray
+        Ray ray = new Ray(cameraContainer.position, -cameraContainer.forward * cameraDistance + cameraContainer.right + cameraContainer.up * 1.5f);
 
         RaycastHit hit;
 
@@ -121,7 +133,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 기본 위치
-            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right;
+            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right + cameraContainer.up * 1.5f;
         }
     }
 }

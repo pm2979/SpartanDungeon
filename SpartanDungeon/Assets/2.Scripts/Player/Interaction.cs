@@ -1,6 +1,8 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 public class Interaction : MonoBehaviour
 {
@@ -14,6 +16,13 @@ public class Interaction : MonoBehaviour
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
+    private Camera _camera;
+    Ray ray;
+
+    void Start()
+    {
+        _camera = Camera.main;
+    }
 
     private void Update()
     {
@@ -21,7 +30,7 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            Ray ray = new Ray(rayPos.position, rayPos.forward);
+            ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask)) // 충돌 확인
@@ -59,12 +68,12 @@ public class Interaction : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
-    void OnDrawGizmos()
-    {
-        Ray ray = new Ray(rayPos.position, rayPos.forward);
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(ray.origin, ray.direction * maxCheckDistance);
-    }
-#endif
+    //private void OnDrawGizmos()
+    //{
+    //    if (_camera == null) return;
+
+    //    Gizmos.color = Color.red;
+    //    ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+    //    Gizmos.DrawRay(ray.origin, ray.direction * maxCheckDistance);
+    //}
 }

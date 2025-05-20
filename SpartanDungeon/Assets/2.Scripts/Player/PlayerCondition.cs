@@ -12,7 +12,6 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        Health.Add(Health.pausedValue * Time.deltaTime);
         Stamina.Add(Stamina.pausedValue * Time.deltaTime);
 
         if(Health.curValue <= 0.0f)
