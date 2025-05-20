@@ -296,7 +296,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   cameraContainer: {fileID: 1833664240}
-  minXLook: -85
+  minXLook: -75
   maxXLook: 0
   lookSensitivity: 0.1
   _camera: {fileID: 963194227}

@@ -17,30 +17,28 @@ public class PlayerController : MonoBehaviour
     private float camCurXRot;
     public float lookSensitivity; // 카메라 민감도
     public Camera _camera;
-    public float cameraDistance = 5.5f;
-
+    public float cameraDistance = 5.5f; // 카메라 거리
 
     private Vector2 mouseDelta;  // 마우스 변화값
-
     private Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();    
     }
+
     private void Update()
     {
-        //CameraPos();
+        CameraPos();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
     }
 
     private void LateUpdate()
     {
-        CameraPos();
         CameraLook();
     }
 
@@ -78,7 +76,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = dir;
     }
 
-    void CameraLook() // 마우스 입력으로 시선 처리
+    private void CameraLook() // 마우스 입력으로 시선 처리
     {
         // 세로 회전
         camCurXRot += mouseDelta.y * lookSensitivity;
@@ -89,7 +87,7 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
-    bool IsGrounded() // 점프 가능 레이어 확인
+    private bool IsGrounded() // 점프 가능 레이어 확인
     {
         Ray[] rays = new Ray[4]
         {
@@ -116,8 +114,9 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, cameraDistance, groundLayerMask)) // Ray로 충동 시 카메라 위치 변경
+        if (Physics.Raycast(ray, out hit, cameraDistance, groundLayerMask))
         {
+            // Ray로 충동 시 카메라 위치 변경
             _camera.transform.position = hit.point;
         }
         else
