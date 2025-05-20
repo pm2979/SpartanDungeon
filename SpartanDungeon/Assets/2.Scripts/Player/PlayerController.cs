@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        CameraPos();
+        //CameraPos();
     }
 
     void FixedUpdate()
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        CameraPos();
         CameraLook();
     }
 
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 기본 위치
-            _camera.transform.position = cameraContainer.forward + (-cameraContainer.forward) * cameraDistance;
+            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance;
         }
     }
 }
