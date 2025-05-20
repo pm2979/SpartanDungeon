@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -122,7 +121,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 기본 위치
-            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance;
+            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right;
         }
     }
 }

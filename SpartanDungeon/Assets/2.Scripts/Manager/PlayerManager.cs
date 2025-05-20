@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
-
 public class PlayerManager : Singleton<PlayerManager>
 {
     Player player;
@@ -12,12 +7,4 @@ public class PlayerManager : Singleton<PlayerManager>
         get { return player; }
         set { player = value; }
     }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-    }
-
-
 }
