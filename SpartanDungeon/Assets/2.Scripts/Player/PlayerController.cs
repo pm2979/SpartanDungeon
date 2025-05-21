@@ -20,17 +20,28 @@ public class PlayerController : MonoBehaviour
     public float cameraDistance = 5.5f; // 카메라 거리
 
     private Vector2 mouseDelta;  // 마우스 변화값
-
+    private PlayerStamina playerStamina;
     private Rigidbody rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();    
+        rb = GetComponent<Rigidbody>();
+        playerStamina = GetComponent<PlayerStamina>();
     }
 
     private void Update()
     {
         CameraPos();
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Subscribe("ChangeSpeed", ChangeSpeed);
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe("ChangeSpeed", ChangeSpeed);
     }
 
     private void FixedUpdate()
@@ -65,6 +76,7 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            playerStamina.UseStamina(25);
         }
     }
 
@@ -120,7 +132,7 @@ public class PlayerController : MonoBehaviour
     private void CameraPos() // 카메라 위치 조정
     {
         // 카메라 뒤로 Ray
-        Ray ray = new Ray(cameraContainer.position, -cameraContainer.forward * cameraDistance + cameraContainer.right + cameraContainer.up * 1.5f);
+        Ray ray = new Ray(cameraContainer.position, -cameraContainer.forward * cameraDistance + cameraContainer.right * 0.5f + cameraContainer.up * 1.3f);
 
         RaycastHit hit;
 
@@ -132,7 +144,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 기본 위치
-            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right + cameraContainer.up * 1.5f;
+            _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right * 0.5f + cameraContainer.up * 1.3f;
         }
+    }
+
+    private void ChangeSpeed(object amount)
+    {
+        moveSpeed += (float) amount;
     }
 }
