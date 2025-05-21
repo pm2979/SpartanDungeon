@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnItemUseInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
+    public void OnItemUseInput(InputAction.CallbackContext context) // 아이템 사용 입력 처리
     {
         if (context.phase == InputActionPhase.Started)
         {

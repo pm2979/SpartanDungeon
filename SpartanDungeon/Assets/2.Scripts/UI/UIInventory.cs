@@ -82,7 +82,7 @@ public class UIInventory : MonoBehaviour
 
     private void ItemActive() // 아이템 사용
     {
-        if (slots[0].item.type == ITEMTYPE.CONSUMABLE)
+        if (slots[0].item != null)
         {
             for (int i = 0; i < slots[0].item.consumables.Length; i++)
             {
