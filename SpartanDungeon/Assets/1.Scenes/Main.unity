@@ -857,8 +857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e665aa0d9a4794e44b2c89fa8594a99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 0}
-  staminaBar: {fileID: 0}
+  hpBar: {fileID: 665784096}
+  staminaBar: {fileID: 1808747385}
 --- !u!1 &665784094
 GameObject:
   m_ObjectHideFlags: 0
