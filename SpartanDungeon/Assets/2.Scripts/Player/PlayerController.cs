@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 mouseDelta;  // 마우스 변화값
 
-    public Action itemUse;
     private Rigidbody rb;
 
     private void Awake()
@@ -73,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            itemUse?.Invoke();
+            EventBus.Publish("UseItem", null);
         }
     }
 

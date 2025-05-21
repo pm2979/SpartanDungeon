@@ -20,8 +20,19 @@ public class PlayerCondition : MonoBehaviour
         }
     }
 
-    public void Heal(float amout) // 회복
+    private void OnEnable()
     {
+        EventBus.Subscribe("Heal", Heal);
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe("Heal", Heal);
+    }
+
+    public void Heal(object evt) // 회복
+    {
+        float amout = (float) evt;
         Health.Add(amout);
     }
 

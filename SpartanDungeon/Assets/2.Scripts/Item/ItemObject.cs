@@ -6,7 +6,7 @@ public interface IInteractable // 상호작용 인터페이스
     public void OnInteract();
 }
 
-public class ItemObject : MonoBehaviour, IInteractable
+public abstract class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
 
@@ -17,10 +17,14 @@ public class ItemObject : MonoBehaviour, IInteractable
         return str;
     }
 
-    public void OnInteract() // 상호작용 시 플레이어에게 정보 넘김
+    public void OnInteract() // 상호작용 시 인벤토리에 정보 넘김
     {
-        PlayerManager.Instance.Player.itemData = data;
-        PlayerManager.Instance.Player.addItem?.Invoke();
+        EventBus.Publish("AddItem", data);
         Destroy(gameObject);
+    }
+
+    public virtual void ItemActive()
+    {
+
     }
 }

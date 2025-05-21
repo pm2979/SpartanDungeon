@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum ITEMTYPE // 아이템 타입
 {
@@ -34,7 +35,9 @@ public class ItemData : ScriptableObject
 
     [Header("Consumable")]
     public ItemDataConsumable[] consumables;
+    public UnityEvent active;
 
     [Header("Equip")]
     public GameObject equipPrefab;
+
 }

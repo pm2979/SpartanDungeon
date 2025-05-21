@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 482176956087426896}
-  - component: {fileID: 493543449951820258}
+  - component: {fileID: 5968556780361247020}
   - component: {fileID: 1255854913509387969}
   m_Layer: 7
   m_Name: Item_Apple
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 4464030681466723545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &493543449951820258
+--- !u!114 &5968556780361247020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7848674779258606565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: effc833bcdd27f44191f7ea6df19c5f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7783f5502eca58e41a136d86343b321b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ca62fc43a79a1cd45a90fdfc7cd263e8, type: 2}

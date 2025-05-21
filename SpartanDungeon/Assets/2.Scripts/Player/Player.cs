@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
 
     public ItemData itemData;
 
-    public Action addItem;
-
     private void Awake()
     {
         PlayerManager.Instance.Player = this;
