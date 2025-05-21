@@ -1360,7 +1360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7848674779258606565, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
       propertyPath: m_Name
-      value: Item_Apple (1)
+      value: Item_Apple_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2602,7 +2602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7848674779258606565, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
       propertyPath: m_Name
-      value: Item_Apple
+      value: Item_Apple_0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2720,7 +2720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146333434903956920, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.19
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8146333434903956920, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2728,7 +2728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146333434903956920, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8146333434903956920, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
       propertyPath: m_LocalRotation.w
