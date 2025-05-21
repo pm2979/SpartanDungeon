@@ -1,15 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UICondition : MonoBehaviour
 {
-    public Condition health;
-    public Condition stamina;
+    public Image hpBar;
+    public Image staminaBar;
 
-    void Start()
+    private void OnEnable()
     {
-        // 플레이어에게 컨디션 할당
-        PlayerManager.Instance.Player.condition.uiCondition = this;
+        EventBus.Subscribe("HpUpdate", UpdateHp);
+        EventBus.Subscribe("StaminaUpdate", UpdateStamina);
     }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe("HpUpdate", UpdateHp);
+        EventBus.Unsubscribe("StaminaUpdate", UpdateStamina);
+    }
+
+    private void UpdateHp(object amount)
+    {
+        hpBar.fillAmount = (float) amount;
+    }
+
+    private void UpdateStamina(object amount)
+    {
+        staminaBar.fillAmount = (float) amount;
+    }
+
 }

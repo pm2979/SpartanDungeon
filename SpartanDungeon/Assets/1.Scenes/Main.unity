@@ -335,7 +335,6 @@ GameObject:
   m_Component:
   - component: {fileID: 281667483}
   - component: {fileID: 281667486}
-  - component: {fileID: 281667485}
   - component: {fileID: 281667484}
   m_Layer: 5
   m_Name: Health
@@ -395,23 +394,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &281667485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281667482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d890bec6a39257b4f82fc5c22a190110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curValue: 0
-  startValue: 80
-  maxValue: 100
-  pausedValue: 1
-  uiBar: {fileID: 665784096}
 --- !u!222 &281667486
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -429,10 +411,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 362179691}
-  - component: {fileID: 362179695}
   - component: {fileID: 362179694}
-  - component: {fileID: 362179696}
   - component: {fileID: 362179698}
+  - component: {fileID: 362179700}
+  - component: {fileID: 362179699}
   - component: {fileID: 362179693}
   - component: {fileID: 362179692}
   - component: {fileID: 362179697}
@@ -532,34 +514,6 @@ MonoBehaviour:
   lookSensitivity: 0.1
   _camera: {fileID: 963194227}
   cameraDistance: 5.5
---- !u!114 &362179695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362179690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e17f9f65bf8a014382264e2613ab3ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  condition: {fileID: 0}
-  itemData: {fileID: 0}
---- !u!114 &362179696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362179690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a0a5867e7abee746b699cdd064eda62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiCondition: {fileID: 0}
 --- !u!114 &362179697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +644,38 @@ MonoBehaviour:
   rayPos: {fileID: 963194228}
   curInteractGameObject: {fileID: 0}
   promptText: {fileID: 12072993}
+--- !u!114 &362179699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362179690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616f50917d14a8e44a4ea3a7e7b2e108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 90
+  maxValue: 100
+  pausedValue: 1
+--- !u!114 &362179700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362179690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67375cc524570794c94fc17ff1a7a404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 400
+  maxValue: 500
+  pausedValue: 5
 --- !u!1 &392199790
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,8 +857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e665aa0d9a4794e44b2c89fa8594a99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 281667485}
-  stamina: {fileID: 1277741927}
+  hpBar: {fileID: 0}
+  staminaBar: {fileID: 0}
 --- !u!1 &665784094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1653,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1277741925}
   - component: {fileID: 1277741928}
-  - component: {fileID: 1277741927}
   - component: {fileID: 1277741926}
   m_Layer: 5
   m_Name: Stamina
@@ -1727,23 +1712,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1277741927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277741924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d890bec6a39257b4f82fc5c22a190110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curValue: 0
-  startValue: 400
-  maxValue: 500
-  pausedValue: 5
-  uiBar: {fileID: 1808747385}
 --- !u!222 &1277741928
 CanvasRenderer:
   m_ObjectHideFlags: 0

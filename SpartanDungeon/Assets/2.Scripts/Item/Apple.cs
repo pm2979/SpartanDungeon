@@ -9,6 +9,4 @@ public class Apple : ItemObject
             EventBus.Publish("Heal", data.consumables[i].value);
         }
     }
-
-
 }

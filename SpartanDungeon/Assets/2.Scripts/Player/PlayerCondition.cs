@@ -1,14 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCondition : MonoBehaviour
 {
-    public UICondition uiCondition;
+    //public UICondition uiCondition;
 
-    Condition Health { get { return uiCondition.health; } }
-    Condition Stamina { get { return uiCondition.stamina; } }
-
+    Condition Health;
+    Condition Stamina;
     public event Action onTakeDamage;
+    private void Start()
+    {
+
+    }
 
     private void Update()
     {
