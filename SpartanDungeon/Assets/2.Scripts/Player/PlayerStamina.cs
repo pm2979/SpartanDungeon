@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerStamina : Condition
 {
-
     protected override void Update()
     {
         base.Update();
-        Stamian();
+        PausedStamian();
     }
 
-    public void Stamian()
+    public void PausedStamian() // 스테미나 지속 회복
     {
         Add(pausedValue * Time.deltaTime);
 
@@ -26,6 +25,8 @@ public class PlayerStamina : Condition
         }
 
         Subtract(amount);
+
+        EventBus.Publish("StaminaUpdate", curValue / maxValue);
         return true;
     }
 }

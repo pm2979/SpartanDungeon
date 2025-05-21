@@ -28,16 +28,16 @@ public class PlayerHP : Condition
         EventBus.Unsubscribe("Heal", Heal);
     }
 
-    public void Heal(object evt) // 회복
+    public void Heal(object amount) // 회복
     {
-        float amout = (float) evt;
-        Add(amout);
+        Add((float)amount);
         EventBus.Publish("HpUpdate", curValue / maxValue);
     }
 
     public void TakePhysicalDamager(int damage) // 데미지를 받았을 때 로직
     {
         Subtract(damage);
+        EventBus.Publish("HpUpdate", curValue / maxValue);
     }
 
     public void Die()

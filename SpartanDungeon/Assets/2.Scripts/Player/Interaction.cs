@@ -28,12 +28,12 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2)); // 화면 중앙에서 Ray 발사
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask)) // 충돌 확인
             {
-                if (hit.collider.gameObject != curInteractGameObject)
+                if (hit.collider.gameObject != curInteractGameObject) // 기존과 다른 Object이면
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
@@ -49,13 +49,13 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void SetPromptText() // 상호작용 정보
+    private void SetPromptText() // 상호작용 Object의 정보
     {
         promptText.gameObject.SetActive(true);
         promptText.text = curInteractable.GetInteractPrompt();
     }
 
-    public void OnInteractInput(InputAction.CallbackContext context)
+    public void OnInteractInput(InputAction.CallbackContext context) // 상호작용 (E)
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {

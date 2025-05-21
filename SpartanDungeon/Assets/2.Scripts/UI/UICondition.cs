@@ -6,13 +6,13 @@ public class UICondition : MonoBehaviour
     public Image hpBar;
     public Image staminaBar;
 
-    private void OnEnable()
+    private void OnEnable() // UI 상태 변화 구독
     {
         EventBus.Subscribe("HpUpdate", UpdateHp);
         EventBus.Subscribe("StaminaUpdate", UpdateStamina);
     }
 
-    private void OnDisable()
+    private void OnDisable() // 구독 해제
     {
         EventBus.Unsubscribe("HpUpdate", UpdateHp);
         EventBus.Unsubscribe("StaminaUpdate", UpdateStamina);
