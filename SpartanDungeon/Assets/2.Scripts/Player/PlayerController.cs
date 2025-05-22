@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -35,9 +36,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // 점프 초기화
-        if (IsGrounded())
+        if (IsGrounded() && curJumpIndex > 0)
         {
             curJumpIndex = 0;
+            inputHandler.isJump = false;
         }
 
         // 카메라 위치 조정
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        else if(inputHandler.isJump && 1 <= curJumpIndex && curJumpIndex < maxJumpIndex && !IsWall()) // 연속 점프가 가능할 경우
+        else if(inputHandler.isJump && 0 < curJumpIndex && curJumpIndex < maxJumpIndex && !IsWall()) // 연속 점프가 가능할 경우
         {
             Jump();
         }
@@ -65,9 +67,11 @@ public class PlayerController : MonoBehaviour
 
     public void Jump() // 점프
     {
-        rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
-        inputHandler.isJump = false;
-        curJumpIndex++;
+        if(playerStamina.UseStamina(jumpStamina))
+        {
+            rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
+            curJumpIndex++;
+        }
     }
 
     private void Move() // 움직임
@@ -109,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 1.1f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 1.05f, groundLayerMask))
             {
                 return true;
             }
