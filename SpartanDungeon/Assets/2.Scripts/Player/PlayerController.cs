@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        else if(inputHandler.isJump && 1 <= curJumpIndex && curJumpIndex < maxJumpIndex) // 연속 점프가 가능할 경우
+        else if(inputHandler.isJump && 1 <= curJumpIndex && curJumpIndex < maxJumpIndex && !IsWall()) // 연속 점프가 가능할 경우
         {
             Jump();
         }
