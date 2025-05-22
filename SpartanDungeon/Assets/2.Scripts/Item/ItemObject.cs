@@ -6,7 +6,12 @@ public interface IInteractable // 상호작용 인터페이스
     public void OnInteract();
 }
 
-public abstract class ItemObject : MonoBehaviour, IInteractable
+public interface IConsumable // 소모품 인터페이스
+{
+    public void ItemActivate();
+}
+
+public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
 
@@ -21,10 +26,5 @@ public abstract class ItemObject : MonoBehaviour, IInteractable
     {
         EventBus.Publish("AddItem", data);
         Destroy(gameObject);
-    }
-
-    public virtual void ItemActivate()
-    {
-
     }
 }

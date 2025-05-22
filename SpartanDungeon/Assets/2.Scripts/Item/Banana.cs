@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Banana : ItemObject
+public class Banana : ItemObject, IConsumable
 {
-    public override void ItemActivate()
+    public void ItemActivate()
     {
         EventBus.Publish("ChangeSpeed", data.consumables[0].value);
         Invoke("BananaDeactivate", data.consumables[0].time);

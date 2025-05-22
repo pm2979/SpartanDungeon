@@ -3,33 +3,33 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Move Setting")]
-    public LayerMask groundLayerMask; // 점프 가능한 레이어
-    public LayerMask wallLayerMask; // 벽 타기 가능한 레이어
-    public int jumpStamina;
-    public int climbStamina;
+    [SerializeField] private LayerMask groundLayerMask; // 점프 가능한 레이어
+    [SerializeField] private LayerMask wallLayerMask; // 벽 타기 가능한 레이어
+    [SerializeField] private int jumpStamina;
+    [SerializeField] private int climbStamina;
     public int curJumpIndex = 0;
     public int maxJumpIndex = 1;
 
     [Header("Look Setting")]
-    public Transform cameraContainer;
-    public float minXLook;  // 최소 시야각
-    public float maxXLook;  // 최대 시야각
-    private float camCurXRot;
-    public float lookSensitivity; // 카메라 민감도
-    public Camera _camera;
-    public float cameraDistance = 5.5f; // 카메라 거리
+    [SerializeField] private Transform cameraContainer;
+    [SerializeField] private float minXLook;  // 최소 시야각
+    [SerializeField] private float maxXLook;  // 최대 시야각
+    [SerializeField] private float camCurXRot;
+    [SerializeField] private float lookSensitivity; // 카메라 민감도
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float cameraDistance = 5.5f; // 카메라 거리
 
     private PlayerStamina playerStamina;
     private StatHandler statHandler;
     private InputHandler inputHandler;
     private Rigidbody rb;
 
-    private void Awake()
+    public void Init(PlayerStamina playerStamina, StatHandler statHandler, InputHandler inputHandler)
     {
         rb = GetComponent<Rigidbody>();
-        playerStamina = GetComponent<PlayerStamina>();
-        statHandler = GetComponent<StatHandler>();
-        inputHandler = GetComponent<InputHandler>();
+        this.playerStamina = playerStamina;
+        this.statHandler = statHandler;
+        this.inputHandler = inputHandler;
     }
 
     private void Update()

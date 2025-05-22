@@ -4,9 +4,9 @@ public class PlayerStamina : Condition
 {
     private StatHandler statHandler;
 
-    private void Awake()
+    public void Init(StatHandler statHandler)
     {
-        statHandler = GetComponent<StatHandler>();
+        this.statHandler = statHandler;
         maxValue = statHandler.Stamina;
     }
 

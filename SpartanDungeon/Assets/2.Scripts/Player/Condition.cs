@@ -8,7 +8,6 @@ public abstract class Condition : MonoBehaviour
 
     protected virtual void Start()
     {
-        // ½ÃÀÛ °ª
         curValue = maxValue;
     }
 

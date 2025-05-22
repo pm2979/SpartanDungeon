@@ -3,6 +3,7 @@ using UnityEngine;
 public class UIInventory : MonoBehaviour
 {
     public ItemSlot[] slots;
+    public ItemSlot equipSlot;
 
     public Transform slotPanel;
     public Transform dropPosition;
@@ -29,27 +30,49 @@ public class UIInventory : MonoBehaviour
         EventBus.Unsubscribe("UseItem", ItemActive);
     }
 
-
     private void AddItem(object data) // 아이템을 얻었을 때
     {
         var _data = (ItemData) data;
         // 비어있는 슬롯을 가져온다.
+
+        if(_data.type == ITEMTYPE.EQUIPABLE)
+        {
+            AddEquipable(_data);
+        }
+        else
+        {
+            AddConsumable(_data);
+        }
+    }
+
+    private void AddEquipable(ItemData data) // 장비 아이템 획득 시
+    {
+        if (equipSlot.item != null) // 기존 장비 버리기
+        {
+            ThrowItem(equipSlot.item);
+        }
+
+        equipSlot.item = data;
+        UpdateEquipUI();
+    }
+
+    private void AddConsumable(ItemData data) // 소비 아이템 획득 시
+    {
         ItemSlot emptySlot = GetEmptySlot();
 
         // 있다면
         if (emptySlot != null)
         {
-            emptySlot.item = _data;
-            UpdateUI();
+            emptySlot.item = data;
+            UpdateConsumUI();
 
             return;
         }
 
-        // 없다면
-        ThrowItem(_data);
+        ThrowItem(data);
     }
 
-    private void UpdateUI()
+    private void UpdateConsumUI() // 소비 아이템 UI
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -61,6 +84,18 @@ public class UIInventory : MonoBehaviour
             {
                 slots[i].Clear();
             }
+        }
+    }
+
+    private void UpdateEquipUI() // 장비 아이템 UI
+    {
+        if (equipSlot != null)
+        {
+            equipSlot.Set();
+        }
+        else
+        {
+            equipSlot.Clear();
         }
     }
 
@@ -87,15 +122,15 @@ public class UIInventory : MonoBehaviour
         {
             slots[0].item.active?.Invoke();
 
-            RemoveSelectedItem();
+            RemoveConsumableItem();
         }
     }
 
-    private void RemoveSelectedItem() // 아이템 사용시 뒤에 아이템 앞으로
+    private void RemoveConsumableItem() // 아이템 사용시 뒤에 아이템 앞으로
     {
         slots[0].item = slots[1].item;
         slots[1].item = null;
 
-        UpdateUI();
+        UpdateConsumUI();
     }
 }

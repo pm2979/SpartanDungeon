@@ -1,8 +1,6 @@
-using System;
-
-public class Apple : ItemObject
+public class Apple : ItemObject, IConsumable
 {
-    public override void ItemActivate()
+    public void ItemActivate()
     {
         for (int i = 0; i < data.consumables.Length; i++)
         {

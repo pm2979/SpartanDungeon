@@ -16,11 +16,11 @@ public class StatHandler : MonoBehaviour
         set { stamina = Mathf.Clamp(value, 0, 200); }
     }
 
-    [Range(1f, 20f)][SerializeField] private float moveSpeed = 5;
+    [Range(1f, 30f)][SerializeField] private float moveSpeed = 5;
     public float MoveSpeed
     {
         get => moveSpeed;
-        set => moveSpeed = Mathf.Clamp(value, 0, 20);
+        set => moveSpeed = Mathf.Clamp(value, 0, 30);
     }
 
     [Range(1f, 150f)][SerializeField] private float jumpPower = 3;

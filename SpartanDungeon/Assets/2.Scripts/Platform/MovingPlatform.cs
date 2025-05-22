@@ -39,13 +39,12 @@ public class MovingPlatform : MonoBehaviour
         if (playerRb != null)
         {
             playerRb.MovePosition(playerRb.position + delta);
-        }
+        } 
 
         // 웨이포인트 도달 시 대기 코루틴 실행
         if (Vector3.Distance(newPos, targetPos) < 0.01f)
             StartCoroutine(WaitingTime());
     }
-
 
     private IEnumerator WaitingTime() // 대기 및 waypoint 갱신
     {

@@ -9,7 +9,6 @@ public class ItemSlot : MonoBehaviour
 
     public bool equipped;
 
-
     public void Set()
     {
         icon.gameObject.SetActive(true);
