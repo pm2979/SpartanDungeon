@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 353542528}
   - component: {fileID: 353542527}
   - component: {fileID: 353542526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,6 +622,9 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   cameraContainer: {fileID: 1833664240}
   minXLook: -75
   maxXLook: 60
@@ -1315,6 +1318,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1255854913509387969, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7848674779258606565, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
       propertyPath: m_Name
       value: Item_Apple_1
@@ -1706,7 +1713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1006203328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2140,7 +2147,7 @@ GameObject:
   - component: {fileID: 1976620331}
   - component: {fileID: 1976620330}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2202,7 +2209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 202c5159be2241d4682cfcbb8d30c7d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2400,7 +2407,7 @@ GameObject:
   - component: {fileID: 2099496845}
   - component: {fileID: 2099496844}
   m_Layer: 6
-  m_Name: Capsule
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2442,7 +2449,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: adb2f20aa957c364e9a392a9214ef5d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2627,6 +2634,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1255854913509387969, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7848674779258606565, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
       propertyPath: m_Name
       value: Item_Apple_0
@@ -2784,6 +2795,10 @@ PrefabInstance:
     - target: {fileID: 8146333434903956920, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9100544711840880654, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

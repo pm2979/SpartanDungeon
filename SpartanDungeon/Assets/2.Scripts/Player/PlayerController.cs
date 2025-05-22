@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Move")]
+    [Header("Move Setting")]
     private Vector2 curMoveInput; // 현재 입력 값
     public LayerMask groundLayerMask; // 점프 가능한 레이어
+    public LayerMask wallLayerMask; // 벽 타기 가능한 레이어
 
-    [Header("Look")]
+
+    [Header("Look Setting")]
     public Transform cameraContainer;
     public float minXLook;  // 최소 시야각
     public float maxXLook;  // 최대 시야각
@@ -78,9 +81,17 @@ public class PlayerController : MonoBehaviour
 
     private void Move() // 움직임
     {
-        Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x) * statHandler.MoveSpeed;
-        Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
-        rb.MovePosition(targetPos);
+        if(IsWall())
+        {
+            Climb();
+        }
+        else
+        {
+            Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x) * statHandler.MoveSpeed;
+            Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
+            rb.MovePosition(targetPos);
+        }
+
     }
 
     private void CameraLook() // 마우스 입력으로 시선 처리
@@ -115,6 +126,29 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    private void Climb() // 벽 타기
+    {
+        if(!IsWall()) return;
+
+        if (playerStamina.UseStamina(10 * Time.fixedDeltaTime))
+        {
+            Debug.Log("벽타기");
+        }
+    }
+
+
+    private bool IsWall() // 벽 타기 가능 레이어 확인
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, 0.6f, wallLayerMask))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void CameraPos() // 카메라 위치 조정
     {
         // 카메라 뒤로 Ray
@@ -132,5 +166,11 @@ public class PlayerController : MonoBehaviour
             // 기본 위치
             _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right * 0.5f + cameraContainer.up * 1.3f;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, transform.forward * 0.6f);
     }
 }

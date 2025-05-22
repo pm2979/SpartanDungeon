@@ -12,7 +12,6 @@ public abstract class Condition : MonoBehaviour
         curValue = maxValue;
     }
 
-
     protected virtual void Update()
     {
 
