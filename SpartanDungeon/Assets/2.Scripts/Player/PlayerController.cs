@@ -68,8 +68,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
     {
-        if(IsWall()) return;
-         
         if (context.phase == InputActionPhase.Started && IsGrounded() && playerStamina.UseStamina(jumpStamina))
         {
             rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
@@ -94,7 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.useGravity = true;
 
-            Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x) * statHandler.MoveSpeed;
+            Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x).normalized * statHandler.MoveSpeed;
             Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
             rb.MovePosition(targetPos);
         }
@@ -135,24 +133,31 @@ public class PlayerController : MonoBehaviour
 
     private void Climb() // 벽 타기
     {
-        if (playerStamina.UseStamina(climbStamina * Time.fixedDeltaTime))
+        if (playerStamina.UseStamina(climbStamina * Time.fixedDeltaTime) && playerStamina.curValue > climbStamina)
         {
-            Vector3 moveInput = (transform.up * curMoveInput.y + transform.right * curMoveInput.x) * (statHandler.MoveSpeed - 2);
-            Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
-            rb.MovePosition(targetPos);
+            // 중력 해제로 위치 고정
+            rb.useGravity = false;
 
-            if(IsGrounded())
-            {
+            // 입력 방향 계산
+            Vector3 inputDir = (transform.up * curMoveInput.y + transform.right * curMoveInput.x).normalized;
+
+            //이동 속도
+            float climbSpeed = statHandler.MoveSpeed - 2f;
+            Vector3 targetVelocity = inputDir * climbSpeed;
+
+            // 현재 속도와의 차이만큼 즉시 보간(Impulse)
+            Vector3 velocityChange = targetVelocity - rb.velocity;
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+            if (IsGrounded())
                 rb.useGravity = true;
-            }
-            else
-            {
-                rb.useGravity = false;
-            }
         }
         else
         {
+            // 스태미나 없으면 떨어짐
             rb.useGravity = true;
+            rb.AddForce(Vector3.down, ForceMode.VelocityChange);
+
         }
     }
 
@@ -194,11 +199,5 @@ public class PlayerController : MonoBehaviour
             // 기본 위치
             _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right * 0.5f + cameraContainer.up * 1.3f;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.forward * 0.6f);
     }
 }

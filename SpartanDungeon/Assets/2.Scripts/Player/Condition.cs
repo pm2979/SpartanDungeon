@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Condition : MonoBehaviour
 {
-    protected float curValue;
+    public float curValue;
     protected float maxValue;
     [SerializeField] protected float pausedValue;
 
