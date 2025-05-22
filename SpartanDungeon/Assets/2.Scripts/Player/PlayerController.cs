@@ -1,17 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Move Setting")]
-    private Vector2 curMoveInput; // 현재 입력 값
     public LayerMask groundLayerMask; // 점프 가능한 레이어
     public LayerMask wallLayerMask; // 벽 타기 가능한 레이어
     public int jumpStamina;
     public int climbStamina;
-
 
     [Header("Look Setting")]
     public Transform cameraContainer;
@@ -22,26 +18,36 @@ public class PlayerController : MonoBehaviour
     public Camera _camera;
     public float cameraDistance = 5.5f; // 카메라 거리
 
-    private Vector2 mouseDelta;  // 마우스 변화값
     private PlayerStamina playerStamina;
-    private Rigidbody rb;
     private StatHandler statHandler;
+    private InputHandler inputHandler;
+    private Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerStamina = GetComponent<PlayerStamina>();
         statHandler = GetComponent<StatHandler>();
+        inputHandler = GetComponent<InputHandler>();
     }
 
     private void Update()
     {
+        if(IsGrounded()) inputHandler.curJumpIndex = 0;
+
         CameraPos();
     }
 
     private void FixedUpdate()
     {
         Move();
+
+        if(inputHandler.canJump)
+        {
+            Jump();
+            inputHandler.canJump = false;
+            inputHandler.curJumpIndex++;
+        }
     }
 
     private void LateUpdate()
@@ -49,29 +55,9 @@ public class PlayerController : MonoBehaviour
         CameraLook();
     }
 
-    public void OnLookInput(InputAction.CallbackContext context) // 마우스 입력 처리
+    public void Jump()
     {
-        mouseDelta = context.ReadValue<Vector2>();
-    }
-
-    public void OnMoveInput(InputAction.CallbackContext context)  // 이동(wasd) 입력 처리
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            curMoveInput = context.ReadValue<Vector2>();
-        }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            curMoveInput = Vector2.zero;
-        }
-    }
-
-    public void OnJumpInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
-    {
-        if (context.phase == InputActionPhase.Started && IsGrounded() && playerStamina.UseStamina(jumpStamina))
-        {
-            rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
-        }
+        rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
     }
 
     public void OnItemUseInput(InputAction.CallbackContext context) // 아이템 사용 입력 처리
@@ -92,22 +78,21 @@ public class PlayerController : MonoBehaviour
         {
             rb.useGravity = true;
 
-            Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x).normalized * statHandler.MoveSpeed;
+            Vector3 moveInput = (transform.forward * inputHandler.CurMoveInput.y + transform.right * inputHandler.CurMoveInput.x).normalized * statHandler.MoveSpeed;
             Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
             rb.MovePosition(targetPos);
         }
-
     }
 
     private void CameraLook() // 마우스 입력으로 시선 처리
     {
         // 세로 회전
-        camCurXRot += mouseDelta.y * lookSensitivity;
+        camCurXRot += inputHandler.MouseDelta.y * lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook); // 회전 범위 제한
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         // 가로 회전
-        transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
+        transform.eulerAngles += new Vector3(0, inputHandler.MouseDelta.x * lookSensitivity, 0);
     }
 
     private bool IsGrounded() // 점프 가능 레이어 확인
@@ -139,7 +124,7 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = false;
 
             // 입력 방향 계산
-            Vector3 inputDir = (transform.up * curMoveInput.y + transform.right * curMoveInput.x).normalized;
+            Vector3 inputDir = (transform.up * inputHandler.CurMoveInput.y + transform.right * inputHandler.CurMoveInput.x).normalized;
 
             //이동 속도
             float climbSpeed = statHandler.MoveSpeed - 2f;
@@ -160,7 +145,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-
 
     private bool IsWall() // 벽 타기 가능 레이어 확인
     {
