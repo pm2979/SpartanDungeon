@@ -2819,7 +2819,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5902980872927305016}
-  - component: {fileID: 5902980872927305017}
   m_Layer: 0
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -2845,22 +2844,6 @@ Transform:
   - {fileID: 263259518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5902980872927305017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5763784381287789170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ede5ec18fd2a64f92f4c04ae8c944e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platform: {fileID: 6817156139718126907}
-  targetPos:
-  - {fileID: 1826444044}
-  - {fileID: 263259518}
 --- !u!1 &6817156139718126907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,6 +2853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4211091097144971146}
+  - component: {fileID: 6817156139718126909}
   - component: {fileID: 15882755126157740}
   - component: {fileID: 162849261576133242}
   - component: {fileID: 6817156139718126908}
@@ -2901,6 +2885,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6817156139718126909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6817156139718126907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ede5ec18fd2a64f92f4c04ae8c944e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 1826444044}
+  - {fileID: 263259518}
+  speed: 5
+  delayTime: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
