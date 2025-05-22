@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask wallLayerMask; // 벽 타기 가능한 레이어
     public int jumpStamina;
     public int climbStamina;
+    public int curJumpIndex = 0;
+    public int maxJumpIndex = 1;
 
     [Header("Look Setting")]
     public Transform cameraContainer;
@@ -33,8 +34,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(IsGrounded()) inputHandler.curJumpIndex = 0;
+        // 점프 초기화
+        if (IsGrounded())
+        {
+            curJumpIndex = 0;
+        }
 
+        // 카메라 위치 조정
         CameraPos();
     }
 
@@ -42,11 +48,13 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
-        if(inputHandler.canJump)
+        if(inputHandler.isJump && curJumpIndex == 0 && IsGrounded()) // 처음 점프
         {
             Jump();
-            inputHandler.canJump = false;
-            inputHandler.curJumpIndex++;
+        }
+        else if(inputHandler.isJump && 1 <= curJumpIndex && curJumpIndex < maxJumpIndex) // 연속 점프가 가능할 경우
+        {
+            Jump();
         }
     }
 
@@ -55,17 +63,11 @@ public class PlayerController : MonoBehaviour
         CameraLook();
     }
 
-    public void Jump()
+    public void Jump() // 점프
     {
         rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
-    }
-
-    public void OnItemUseInput(InputAction.CallbackContext context) // 아이템 사용 입력 처리
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            EventBus.Publish("UseItem", null);
-        }
+        inputHandler.isJump = false;
+        curJumpIndex++;
     }
 
     private void Move() // 움직임
@@ -142,7 +144,6 @@ public class PlayerController : MonoBehaviour
             // 스태미나 없으면 떨어짐
             rb.useGravity = true;
             rb.AddForce(Vector3.down, ForceMode.VelocityChange);
-
         }
     }
 

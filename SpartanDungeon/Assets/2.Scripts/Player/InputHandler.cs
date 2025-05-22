@@ -5,9 +5,7 @@ public class InputHandler : MonoBehaviour
 {
     public Vector2 CurMoveInput { get; private set; } // 현재 입력 값
     public Vector2 MouseDelta { get; private set; }  // 마우스 변화값
-    public int curJumpIndex = 0;
-    public int maxJumpIndex = 1;
-    public bool canJump = false;
+    public bool isJump = false;
 
     public void OnLookInput(InputAction.CallbackContext context) // 마우스 입력 처리
     {
@@ -28,9 +26,9 @@ public class InputHandler : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
     {
-        if (context.phase == InputActionPhase.Started && curJumpIndex < maxJumpIndex)
+        if (context.phase == InputActionPhase.Started)
         {
-            canJump = true;
+            isJump = true;
         }
     }
 

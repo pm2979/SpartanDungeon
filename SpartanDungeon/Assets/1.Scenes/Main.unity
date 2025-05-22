@@ -547,6 +547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 362179691}
+  - component: {fileID: 362179703}
   - component: {fileID: 362179702}
   - component: {fileID: 362179694}
   - component: {fileID: 362179698}
@@ -627,6 +628,8 @@ MonoBehaviour:
     m_Bits: 256
   jumpStamina: 35
   climbStamina: 20
+  curJumpIndex: 0
+  maxJumpIndex: 1
   cameraContainer: {fileID: 1833664240}
   minXLook: -75
   maxXLook: 60
@@ -660,8 +663,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362179694}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 362179703}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: OnMoveInput
         m_Mode: 0
         m_Arguments:
@@ -676,8 +679,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362179694}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 362179703}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: OnLookInput
         m_Mode: 0
         m_Arguments:
@@ -692,8 +695,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362179694}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 362179703}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: OnJumpInput
         m_Mode: 0
         m_Arguments:
@@ -724,8 +727,8 @@ MonoBehaviour:
     m_ActionName: Player/Interaction[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362179694}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 362179703}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: OnItemUseInput
         m_Mode: 0
         m_Arguments:
@@ -775,6 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616f50917d14a8e44a4ea3a7e7b2e108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
   pausedValue: 1
 --- !u!114 &362179700
 MonoBehaviour:
@@ -788,6 +792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67375cc524570794c94fc17ff1a7a404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
   pausedValue: 5
 --- !u!136 &362179701
 CapsuleCollider:
@@ -828,6 +833,19 @@ MonoBehaviour:
   stamina: 200
   moveSpeed: 5
   jumpPower: 80
+--- !u!114 &362179703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362179690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a037139c77a22e7449dea7232dd41e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isJump: 0
 --- !u!1 &369355051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,9 +2667,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: JumpingPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 440620015291009366, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691965503671031327, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1732741396902880796, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.1421366
+      value: 10.04
       objectReference: {fileID: 0}
     - target: {fileID: 1732741396902880796, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2659,7 +2685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1732741396902880796, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.7158015
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 1732741396902880796, guid: 18bb201353bb7fe49848bc1556a4a80c, type: 3}
       propertyPath: m_LocalRotation.w

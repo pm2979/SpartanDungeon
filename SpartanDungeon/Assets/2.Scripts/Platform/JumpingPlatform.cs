@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JumpingPlatform : MonoBehaviour
@@ -13,7 +11,6 @@ public class JumpingPlatform : MonoBehaviour
             Rigidbody rb = collision.rigidbody;
 
             rb.velocity = Vector3.zero;
-
             rb.AddForce(transform.up * power, ForceMode.Impulse);
         }
     }
