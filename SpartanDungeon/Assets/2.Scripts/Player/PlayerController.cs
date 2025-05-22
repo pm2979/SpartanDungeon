@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -40,7 +39,6 @@ public class PlayerController : MonoBehaviour
         {
             curJumpIndex = 0;
             inputHandler.isJump = false;
-            inputHandler.isDJump = false;
         }
 
         // 카메라 위치 조정
@@ -54,13 +52,11 @@ public class PlayerController : MonoBehaviour
         if(inputHandler.isJump && curJumpIndex == 0 && IsGrounded()) // 처음 점프
         {
             Jump();
-            Debug.Log("1");
+
         }
         else if(inputHandler.isDJump && 0 < curJumpIndex && curJumpIndex < maxJumpIndex && !IsWall()) // 연속 점프가 가능할 경우
         {
             Jump();
-            inputHandler.isDJump = false;
-            Debug.Log("2");
         }
     }
 
@@ -74,6 +70,7 @@ public class PlayerController : MonoBehaviour
         if(playerStamina.UseStamina(jumpStamina))
         {
             rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
+            inputHandler.isDJump = false;
             curJumpIndex++;
         }
     }

@@ -35,7 +35,6 @@ public class InputHandler : MonoBehaviour
             }
 
             isJump = true;
-
         }
     }
 
