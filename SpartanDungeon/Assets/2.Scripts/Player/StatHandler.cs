@@ -9,11 +9,11 @@ public class StatHandler : MonoBehaviour
         set { health = Mathf.Clamp(value, 0, 100); }
     }
 
-    [Range(1, 500)][SerializeField] private float stamina = 500;
+    [Range(1, 200)][SerializeField] private float stamina = 200;
     public float Stamina
     {
         get { return stamina; }
-        set { stamina = Mathf.Clamp(value, 0, 500); }
+        set { stamina = Mathf.Clamp(value, 0, 200); }
     }
 
     [Range(1f, 20f)][SerializeField] private float moveSpeed = 5;

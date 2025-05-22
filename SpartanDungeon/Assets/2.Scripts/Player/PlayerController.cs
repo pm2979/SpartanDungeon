@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 curMoveInput; // 현재 입력 값
     public LayerMask groundLayerMask; // 점프 가능한 레이어
     public LayerMask wallLayerMask; // 벽 타기 가능한 레이어
+    public int jumpStamina;
+    public int climbStamina;
 
 
     [Header("Look Setting")]
@@ -65,7 +68,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded() && playerStamina.UseStamina(25))
+        if(IsWall()) return;
+         
+        if (context.phase == InputActionPhase.Started && IsGrounded() && playerStamina.UseStamina(jumpStamina))
         {
             rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
         }
@@ -87,6 +92,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            rb.useGravity = true;
+
             Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x) * statHandler.MoveSpeed;
             Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
             rb.MovePosition(targetPos);
@@ -112,7 +119,7 @@ public class PlayerController : MonoBehaviour
             new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
             new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
             new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (-transform.right * 0.2f) +(transform.up * 0.01f), Vector3.down)
+            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
         };
 
         for (int i = 0; i < rays.Length; i++)
@@ -128,22 +135,43 @@ public class PlayerController : MonoBehaviour
 
     private void Climb() // 벽 타기
     {
-        if(!IsWall()) return;
-
-        if (playerStamina.UseStamina(10 * Time.fixedDeltaTime))
+        if (playerStamina.UseStamina(climbStamina * Time.fixedDeltaTime))
         {
-            Debug.Log("벽타기");
+            Vector3 moveInput = (transform.up * curMoveInput.y + transform.right * curMoveInput.x) * (statHandler.MoveSpeed - 2);
+            Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
+            rb.MovePosition(targetPos);
+
+            if(IsGrounded())
+            {
+                rb.useGravity = true;
+            }
+            else
+            {
+                rb.useGravity = false;
+            }
+        }
+        else
+        {
+            rb.useGravity = true;
         }
     }
 
 
     private bool IsWall() // 벽 타기 가능 레이어 확인
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-
-        if (Physics.Raycast(ray, 0.6f, wallLayerMask))
+        Ray[] rays = new Ray[3]
         {
-            return true;
+            new Ray(transform.position, transform.forward),
+            new Ray(transform.position + (transform.up * 0.5f), transform.forward),
+            new Ray(transform.position + (-transform.up * 0.5f), transform.forward),
+        };
+
+        for (int i = 0; i < rays.Length; i++)
+        {
+            if (Physics.Raycast(rays[i], 0.6f, wallLayerMask))
+            {
+                return true;
+            }
         }
 
         return false;
