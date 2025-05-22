@@ -23,7 +23,7 @@ public abstract class ItemObject : MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
-    public virtual void ItemActive()
+    public virtual void ItemActivate()
     {
 
     }

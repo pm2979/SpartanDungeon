@@ -19,14 +19,14 @@ MonoBehaviour:
   dropPrefab: {fileID: 4876542672633992324, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
   consumables:
   - type: 1
-    value: 100
+    value: 10
     time: 5
   active:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3887647814236460824, guid: e0011ccf0f12ecb4ca8c8706263af0f9, type: 3}
         m_TargetAssemblyTypeName: Banana, Assembly-CSharp
-        m_MethodName: ItemActive
+        m_MethodName: ItemActivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

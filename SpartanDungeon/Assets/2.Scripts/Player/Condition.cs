@@ -3,15 +3,14 @@ using UnityEngine.UI;
 
 public abstract class Condition : MonoBehaviour
 {
-    public float curValue;
-    public float startValue;
-    public float maxValue;
-    public float pausedValue;
+    protected float curValue;
+    protected float maxValue;
+    [SerializeField] protected float pausedValue;
 
     protected virtual void Start()
     {
         // ½ÃÀÛ °ª
-        curValue = startValue;
+        curValue = maxValue;
     }
 
 

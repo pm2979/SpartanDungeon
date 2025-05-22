@@ -26,7 +26,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5968556780361247020, guid: 3270f24fb9b379d42a7ac1ec0173305d, type: 3}
         m_TargetAssemblyTypeName: Apple, Assembly-CSharp
-        m_MethodName: ItemActive
+        m_MethodName: ItemActivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

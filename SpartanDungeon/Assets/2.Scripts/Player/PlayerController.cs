@@ -1,13 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Move")]
-    public float moveSpeed;
     private Vector2 curMoveInput; // 현재 입력 값
-    public float jumpPower;
     public LayerMask groundLayerMask; // 점프 가능한 레이어
 
     [Header("Look")]
@@ -22,26 +19,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;  // 마우스 변화값
     private PlayerStamina playerStamina;
     private Rigidbody rb;
+    private StatHandler statHandler;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerStamina = GetComponent<PlayerStamina>();
+        statHandler = GetComponent<StatHandler>();
     }
 
     private void Update()
     {
         CameraPos();
-    }
-
-    private void OnEnable()
-    {
-        EventBus.Subscribe("ChangeSpeed", ChangeSpeed);
-    }
-
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe("ChangeSpeed", ChangeSpeed);
     }
 
     private void FixedUpdate()
@@ -73,10 +62,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context) // 점프(space) 입력 처리
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Started && IsGrounded() && playerStamina.UseStamina(25))
         {
-            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            playerStamina.UseStamina(25);
+            rb.AddForce(Vector2.up * statHandler.JumpPower, ForceMode.Impulse);
         }
     }
 
@@ -90,11 +78,9 @@ public class PlayerController : MonoBehaviour
 
     private void Move() // 움직임
     {
-        Vector3 dir = transform.forward * curMoveInput.y + transform.right * curMoveInput.x;
-        dir *= moveSpeed;
-        dir.y = rb.velocity.y;
-
-        rb.velocity = dir;
+        Vector3 moveInput = (transform.forward * curMoveInput.y + transform.right * curMoveInput.x) * statHandler.MoveSpeed;
+        Vector3 targetPos = rb.position + moveInput * Time.fixedDeltaTime;
+        rb.MovePosition(targetPos);
     }
 
     private void CameraLook() // 마우스 입력으로 시선 처리
@@ -139,17 +125,12 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, cameraDistance, groundLayerMask))
         {
             // Ray로 충동 시 카메라 위치 변경
-            _camera.transform.position = hit.point;
+            _camera.transform.position = hit.point + hit.transform.forward * 0.5f;
         }
         else
         {
             // 기본 위치
             _camera.transform.position = cameraContainer.position - cameraContainer.forward * cameraDistance + cameraContainer.right * 0.5f + cameraContainer.up * 1.3f;
         }
-    }
-
-    private void ChangeSpeed(object amount)
-    {
-        moveSpeed += (float) amount;
     }
 }

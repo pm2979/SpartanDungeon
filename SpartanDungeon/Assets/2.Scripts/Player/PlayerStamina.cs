@@ -1,9 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStamina : Condition
 {
+    private StatHandler statHandler;
+
+    private void Awake()
+    {
+        statHandler = GetComponent<StatHandler>();
+        maxValue = statHandler.Stamina;
+    }
+
     protected override void Update()
     {
         base.Update();

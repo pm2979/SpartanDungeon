@@ -2,7 +2,7 @@ using System;
 
 public class Apple : ItemObject
 {
-    public override void ItemActive()
+    public override void ItemActivate()
     {
         for (int i = 0; i < data.consumables.Length; i++)
         {

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Banana : ItemObject
 {
-    public override void ItemActive()
+    public override void ItemActivate()
     {
         EventBus.Publish("ChangeSpeed", data.consumables[0].value);
-        Invoke("BananaActive", data.consumables[0].time);
+        Invoke("BananaDeactivate", data.consumables[0].time);
     }
 
-    private void BananaActive()
+    private void BananaDeactivate()
     {
 
         EventBus.Publish("ChangeSpeed", -data.consumables[0].value);

@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerHP : Condition
 {
+    private StatHandler statHandler;
+
+    private void Awake()
+    {
+        statHandler = GetComponent<StatHandler>();
+        maxValue = statHandler.Health;
+    }
+
     protected override void Start()
     {
         base.Start();
