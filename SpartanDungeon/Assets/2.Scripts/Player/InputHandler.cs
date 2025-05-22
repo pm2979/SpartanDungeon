@@ -6,6 +6,7 @@ public class InputHandler : MonoBehaviour
     public Vector2 CurMoveInput { get; private set; } // 현재 입력 값
     public Vector2 MouseDelta { get; private set; }  // 마우스 변화값
     public bool isJump = false;
+    public bool isDJump = false;
 
     public void OnLookInput(InputAction.CallbackContext context) // 마우스 입력 처리
     {
@@ -28,7 +29,13 @@ public class InputHandler : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
+            if(isJump)
+            {
+                isDJump = true;
+            }
+
             isJump = true;
+
         }
     }
 
