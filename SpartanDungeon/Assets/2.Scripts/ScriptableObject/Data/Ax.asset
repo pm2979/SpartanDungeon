@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ax
   m_EditorClassIdentifier: 
   displayName: "\uB3C4\uB07C"
-  description: "\uC7A5\uCC29 \uC2DC \uBE68\uB77C\uC9C4\uB2E4."
+  description: "\uC7A5\uCC29 \uC2DC \uC774\uB3D9\uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
   type: 0
   icon: {fileID: 21300000, guid: 06e8d836c76eb494db7ab3784ffcb0eb, type: 3}
   prefab: {fileID: 8644261427507472157, guid: cf70c026da652f84a861984225e679d2, type: 3}

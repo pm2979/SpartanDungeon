@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             float climbSpeed = statHandler.MoveSpeed - 2f;
             Vector3 targetVelocity = inputDir * climbSpeed;
 
-            // 현재 속도와의 차이만큼 즉시 보간(Impulse)
+            // 현재 속도와의 차이만큼 즉시 보간
             Vector3 velocityChange = targetVelocity - rb.velocity;
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
 

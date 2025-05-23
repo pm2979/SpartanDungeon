@@ -31,15 +31,9 @@ public class StatHandler : MonoBehaviour
         set => jumpPower = Mathf.Clamp(value, 0, 150);
     }
 
-    Coroutine statBuff;
-
     public void StatBuff(float amount, float duration, CONSUMABLETYPE type) // 버프
     {
-        // 이미 버프 중이면 먼저 해제
-        if (statBuff != null)
-            StopCoroutine(statBuff);
-
-        statBuff = StartCoroutine(StatBuffCoroutine(amount, duration, type));
+        StartCoroutine(StatBuffCoroutine(amount, duration, type));
     }
 
     private IEnumerator StatBuffCoroutine(float amount, float duration, CONSUMABLETYPE type) // 버프 코루틴
@@ -53,7 +47,7 @@ public class StatHandler : MonoBehaviour
         else if(type == CONSUMABLETYPE.JUMP)
         {
             jumpPower += amount;
-            
+            yield return new WaitForSeconds(duration);
             jumpPower -= amount;
         }
     }
