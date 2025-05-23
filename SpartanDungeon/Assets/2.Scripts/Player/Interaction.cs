@@ -12,12 +12,19 @@ public class Interaction : MonoBehaviour
 
     public GameObject curInteractGameObject;
     private IInteractable curInteractable;
+    private ItemObject itemObject;
 
+    public Inventory inventory;
     public TextMeshProUGUI promptText;
     private Camera _camera;
-    Ray ray;
+    private Ray ray;
 
-    void Start()
+    public void Init(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
+
+    private void Start()
     {
         _camera = Camera.main;
     }
@@ -37,6 +44,12 @@ public class Interaction : MonoBehaviour
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
+
+                    if(hit.collider.TryGetComponent<ItemObject>(out ItemObject itemObject))
+                    {
+                        this.itemObject = itemObject;
+                    }
+
                     SetPromptText();
                 }
             }
@@ -59,19 +72,16 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
+            if(itemObject != null)
+            {
+                inventory.AddItem(itemObject.data);
+                itemObject = null;
+            }
+
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (_camera == null) return;
-
-    //    Gizmos.color = Color.red;
-    //    ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-    //    Gizmos.DrawRay(ray.origin, ray.direction * maxCheckDistance);
-    //}
 }

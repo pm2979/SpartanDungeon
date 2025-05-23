@@ -2,11 +2,8 @@ using UnityEngine;
 
 public class PlayerStamina : Condition
 {
-    private StatHandler statHandler;
-
     public void Init(StatHandler statHandler)
     {
-        this.statHandler = statHandler;
         maxValue = statHandler.Stamina;
     }
 
@@ -20,7 +17,7 @@ public class PlayerStamina : Condition
     {
         Add(pausedValue * Time.deltaTime);
 
-        EventBus.Publish("StaminaUpdate", curValue / maxValue);
+        UpdateStaminaUI();
     }
 
     public bool UseStamina(float amount) // 스테미나 사용
@@ -32,7 +29,12 @@ public class PlayerStamina : Condition
 
         Subtract(amount);
 
-        EventBus.Publish("StaminaUpdate", curValue / maxValue);
+        UpdateStaminaUI();
         return true;
+    }
+
+    private void UpdateStaminaUI()
+    {
+        EventBus.Publish("StaminaUpdate", curValue / maxValue);
     }
 }

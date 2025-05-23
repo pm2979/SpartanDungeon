@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public Equipment Equipment { get; private set; }
     public PlayerHP PlayerHP { get; private set; }
     public PlayerStamina PlayerStamina { get; private set; }
+    public Inventory inventory { get; private set; }
+    public Interaction interaction { get; private set; }
+
 
     private void Awake()
     {
@@ -17,9 +20,13 @@ public class Player : MonoBehaviour
         Equipment = GetComponent<Equipment>();
         PlayerHP = GetComponent<PlayerHP>();
         PlayerStamina = GetComponent<PlayerStamina>();
+        inventory = GetComponent<Inventory>();
+        interaction = GetComponent<Interaction>();
 
         Controller.Init(PlayerStamina, StatHandler, InputHandler);
         PlayerHP.Init(StatHandler);
         PlayerStamina.Init(StatHandler);
+        interaction.Init(inventory);
+        inventory.Init(InputHandler, Equipment);
     }
 }

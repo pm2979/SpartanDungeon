@@ -22,9 +22,8 @@ public class ItemObject : MonoBehaviour, IInteractable
         return str;
     }
 
-    public void OnInteract() // 상호작용 시 인벤토리에 정보 넘김
+    public void OnInteract()
     {
-        EventBus.Publish("AddItem", data);
         Destroy(gameObject);
     }
 }

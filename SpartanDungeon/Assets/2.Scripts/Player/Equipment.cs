@@ -4,30 +4,16 @@ public class Equipment : MonoBehaviour
 {
     private Equip curEquip;
 
-    private void OnEnable()
+    public void NewEquip(ItemData item) // 새로운 장비 장착
     {
-        EventBus.Subscribe("AddItem", NewEquip);
-    }
-
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe("AddItem", NewEquip);
-    }
-
-    private void NewEquip(object data)
-    {
-        ItemData item = (ItemData) data;
-
-        if (item.type != ITEMTYPE.EQUIPABLE) return;
-
         UnEquip();
+
         curEquip = Instantiate(item.equipPrefab, transform).GetComponent<Equip>();
         curEquip.player = GetComponent<Player>();
         curEquip.PassiveOn();
-        
     }
 
-    private void UnEquip()
+    private void UnEquip() // 장비 해제
     {
         if (curEquip != null)
         {
