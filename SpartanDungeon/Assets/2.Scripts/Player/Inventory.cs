@@ -7,13 +7,11 @@ public class Inventory : MonoBehaviour
     public int slotCount = 3;
     public Transform dropPosition;
     
-    private InputHandler inputHandler;
-    private Equipment equipment;
+    private Player player;
 
-    public void Init(InputHandler inputHandler, Equipment equipment)
+    public void Init(Player player)
     {
-        this.inputHandler = inputHandler;
-        this.equipment = equipment;
+        this.player = player;
 
         slots = new ItemSlot[slotCount];
         for (int i = 0; i < slotCount; i++)
@@ -22,11 +20,10 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if(inputHandler.isUseItme == true)
+        if(player.InputHandler.isUseItme == true)
         {
             ItemActivate();
-            RemoveConsumableItem();
-            inputHandler.isUseItme = false;
+            player.InputHandler.isUseItme = false;
         }
     }
 
@@ -50,7 +47,7 @@ public class Inventory : MonoBehaviour
         }
 
         slots[equipSlotNum].item = data;
-        equipment.NewEquip(data);
+        player.Equipment.NewEquip(data);
 
         UpdateUI();
     }
@@ -84,16 +81,19 @@ public class Inventory : MonoBehaviour
 
     private void ThrowItem(ItemData data) // 아이템 버리기
     {
-        Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
+        Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
     }
 
     private void ItemActivate() // 아이템 사용
     {
         if (slots[1].item != null)
         {
-            slots[1].item.active?.Invoke();
+            if(slots[1].item.prefab.TryGetComponent<IConsumable>(out IConsumable consumable))
+            {
+                consumable.ItemActivate(player);
+            }
 
-            //RemoveConsumableItem();
+            RemoveConsumableItem();
         }
     }
 

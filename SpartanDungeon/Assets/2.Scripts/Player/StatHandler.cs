@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class StatHandler : MonoBehaviour
@@ -30,19 +31,30 @@ public class StatHandler : MonoBehaviour
         set => jumpPower = Mathf.Clamp(value, 0, 150);
     }
 
-    private void OnEnable()
+    Coroutine statBuff;
+
+    public void StatBuff(float amount, float duration, CONSUMABLETYPE type) // 버프
     {
-        EventBus.Subscribe("ChangeSpeed", ChangeSpeed);
+        // 이미 버프 중이면 먼저 해제
+        if (statBuff != null)
+            StopCoroutine(statBuff);
+
+        statBuff = StartCoroutine(StatBuffCoroutine(amount, duration, type));
     }
 
-    private void OnDisable()
+    private IEnumerator StatBuffCoroutine(float amount, float duration, CONSUMABLETYPE type) // 버프 코루틴
     {
-        EventBus.Unsubscribe("ChangeSpeed", ChangeSpeed);
+        if(type == CONSUMABLETYPE.SPEED)
+        {
+            moveSpeed += amount;
+            yield return new WaitForSeconds(duration);
+            moveSpeed -= amount;
+        }
+        else if(type == CONSUMABLETYPE.JUMP)
+        {
+            jumpPower += amount;
+            
+            jumpPower -= amount;
+        }
     }
-
-    private void ChangeSpeed(object amount)
-    {
-        MoveSpeed += (float)amount;
-    }
-
 }

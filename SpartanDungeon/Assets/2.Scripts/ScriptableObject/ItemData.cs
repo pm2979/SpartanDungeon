@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public enum ITEMTYPE // 아이템 타입
 {
@@ -11,6 +10,7 @@ public enum ITEMTYPE // 아이템 타입
 public enum CONSUMABLETYPE // 소비 타입
 {
     HEALTH,
+    STAMINA,
     SPEED,
     JUMP
 }
@@ -31,11 +31,10 @@ public class ItemData : ScriptableObject
     public string description;
     public ITEMTYPE type;
     public Sprite icon;
-    public GameObject dropPrefab;
+    public GameObject prefab;
 
     [Header("Consumable")]
     public ItemDataConsumable[] consumables;
-    public UnityEvent active;
 
     [Header("Equip")]
     public GameObject equipPrefab;

@@ -22,16 +22,6 @@ public class PlayerHP : Condition
         }
     }
 
-    private void OnEnable()
-    {
-        EventBus.Subscribe("Heal", Heal);
-    }
-
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe("Heal", Heal);
-    }
-
     public void Heal(object amount) // È¸º¹
     {
         Add((float)amount);

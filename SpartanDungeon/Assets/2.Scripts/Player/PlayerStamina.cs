@@ -33,6 +33,12 @@ public class PlayerStamina : Condition
         return true;
     }
 
+    public void Heal(object amount) // È¸º¹
+    {
+        Add((float)amount);
+        UpdateStaminaUI();
+    }
+
     private void UpdateStaminaUI()
     {
         EventBus.Publish("StaminaUpdate", curValue / maxValue);

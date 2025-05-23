@@ -27,6 +27,6 @@ public class Player : MonoBehaviour
         PlayerHP.Init(StatHandler);
         PlayerStamina.Init(StatHandler);
         interaction.Init(inventory);
-        inventory.Init(InputHandler, Equipment);
+        inventory.Init(this);
     }
 }

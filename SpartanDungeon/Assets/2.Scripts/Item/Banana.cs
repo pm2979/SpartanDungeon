@@ -1,16 +1,13 @@
 
 public class Banana : ItemObject, IConsumable
 {
-    public void ItemActivate()
+    public void ItemActivate(Player player)
     {
-        EventBus.Publish("ChangeSpeed", data.consumables[0].value);
-        Invoke("BananaDeactivate", data.consumables[0].time);
+        player.StatHandler.StatBuff(
+            data.consumables[0].value,
+            data.consumables[0].time,
+            data.consumables[0].type
+            );
     }
-
-    private void BananaDeactivate()
-    {
-
-        EventBus.Publish("ChangeSpeed", -data.consumables[0].value);
-    } 
 }
 

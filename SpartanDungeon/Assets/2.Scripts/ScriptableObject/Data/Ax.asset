@@ -16,21 +16,6 @@ MonoBehaviour:
   description: "\uC7A5\uCC29 \uC2DC \uBE68\uB77C\uC9C4\uB2E4."
   type: 0
   icon: {fileID: 21300000, guid: 06e8d836c76eb494db7ab3784ffcb0eb, type: 3}
-  dropPrefab: {fileID: 8644261427507472157, guid: cf70c026da652f84a861984225e679d2, type: 3}
+  prefab: {fileID: 8644261427507472157, guid: cf70c026da652f84a861984225e679d2, type: 3}
   consumables: []
-  active:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Banana, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   equipPrefab: {fileID: 173642976099820757, guid: a96612b1d2bbeed4abe6650e16c6fa29, type: 3}

@@ -8,7 +8,7 @@ public interface IInteractable // 상호작용 인터페이스
 
 public interface IConsumable // 소모품 인터페이스
 {
-    public void ItemActivate();
+    public void ItemActivate(Player player);
 }
 
 public class ItemObject : MonoBehaviour, IInteractable
