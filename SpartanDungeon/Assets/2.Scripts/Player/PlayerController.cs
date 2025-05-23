@@ -32,6 +32,11 @@ public class PlayerController : MonoBehaviour
         this.inputHandler = inputHandler;
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         // 점프 초기화
